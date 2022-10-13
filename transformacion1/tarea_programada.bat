@@ -1,3 +1,3 @@
 echo "Ejecucion desde tarea programada" |certutil 
- date /t 
+pan -file:Transformacion1.ktr 
 pause 
