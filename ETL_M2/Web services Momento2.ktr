@@ -724,7 +724,7 @@
     </remotesteps>
     <GUI>
       <xloc>304</xloc>
-      <yloc>496</yloc>
+      <yloc>400</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -770,7 +770,7 @@
     </remotesteps>
     <GUI>
       <xloc>544</xloc>
-      <yloc>496</yloc>
+      <yloc>400</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1015,7 +1015,7 @@
     </remotesteps>
     <GUI>
       <xloc>304</xloc>
-      <yloc>320</yloc>
+      <yloc>304</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1132,7 +1132,7 @@ FROM "public".numbertowords
     </remotesteps>
     <GUI>
       <xloc>128</xloc>
-      <yloc>320</yloc>
+      <yloc>304</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1169,7 +1169,7 @@ FROM "public".grados
     </remotesteps>
     <GUI>
       <xloc>112</xloc>
-      <yloc>496</yloc>
+      <yloc>400</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1240,8 +1240,8 @@ FROM "public".grados
       </output>
     </remotesteps>
     <GUI>
-      <xloc>560</xloc>
-      <yloc>400</yloc>
+      <xloc>544</xloc>
+      <yloc>304</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
