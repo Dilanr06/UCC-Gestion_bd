@@ -544,7 +544,7 @@
   <order>
     <hop>
       <from>CSV file input</from>
-      <to>Table output</to>
+      <to>Table output ORCL</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -554,7 +554,7 @@
     </hop>
     <hop>
       <from>Filter rows Description domestic </from>
-      <to>Table output to postgres</to>
+      <to>Table output domestic POSTGRES</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -564,7 +564,27 @@
     </hop>
     <hop>
       <from>Filter rows domestic true </from>
-      <to>Table output to postgres</to>
+      <to>Table output domestic POSTGRES</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>CSV file input</from>
+      <to>Filter rows crime </to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Filter rows crime </from>
+      <to>Filter rows crime_description</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Filter rows crime </from>
+      <to>Table output crime POSTGRES</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Filter rows crime_description</from>
+      <to>Table output crime POSTGRES</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -852,7 +872,95 @@
     </GUI>
   </step>
   <step>
-    <name>Table output</name>
+    <name>Filter rows Description domestic </name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <send_true_to>Table output domestic POSTGRES</send_true_to>
+    <send_false_to>Filter rows domestic true </send_false_to>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <leftvalue>Description</leftvalue>
+        <function>CONTAINS</function>
+        <rightvalue/>
+        <value>
+          <name>constant</name>
+          <type>String</type>
+          <text>DOMESTIC</text>
+          <length>-1</length>
+          <precision>-1</precision>
+          <isnull>N</isnull>
+          <mask/>
+        </value>
+      </condition>
+    </compare>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>320</xloc>
+      <yloc>224</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Filter rows domestic true </name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <send_true_to>Table output domestic POSTGRES</send_true_to>
+    <send_false_to/>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <leftvalue>Domestic</leftvalue>
+        <function>TRUE</function>
+        <rightvalue/>
+        <value>
+          <name>constant</name>
+          <type>String</type>
+          <text/>
+          <length>-1</length>
+          <precision>-1</precision>
+          <isnull>Y</isnull>
+          <mask/>
+        </value>
+      </condition>
+    </compare>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>320</xloc>
+      <yloc>352</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Table output ORCL</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -984,51 +1092,7 @@
     </GUI>
   </step>
   <step>
-    <name>Filter rows Description domestic </name>
-    <type>FilterRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <send_true_to>Table output to postgres</send_true_to>
-    <send_false_to>Filter rows domestic true </send_false_to>
-    <compare>
-      <condition>
-        <negated>N</negated>
-        <leftvalue>Description</leftvalue>
-        <function>CONTAINS</function>
-        <rightvalue/>
-        <value>
-          <name>constant</name>
-          <type>String</type>
-          <text>DOMESTIC</text>
-          <length>-1</length>
-          <precision>-1</precision>
-          <isnull>N</isnull>
-          <mask/>
-        </value>
-      </condition>
-    </compare>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>320</xloc>
-      <yloc>224</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Table output to postgres</name>
+    <name>Table output domestic POSTGRES</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -1160,7 +1224,139 @@
     </GUI>
   </step>
   <step>
-    <name>Filter rows domestic true </name>
+    <name>Table output crime POSTGRES</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>postgres</connection>
+    <schema>public</schema>
+    <table>crimenes_crime</table>
+    <commit>1000</commit>
+    <truncate>Y</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+      <field>
+        <column_name>ID</column_name>
+        <stream_name>ID</stream_name>
+      </field>
+      <field>
+        <column_name>case_crime</column_name>
+        <stream_name>Case Number</stream_name>
+      </field>
+      <field>
+        <column_name>date_crime</column_name>
+        <stream_name>Date</stream_name>
+      </field>
+      <field>
+        <column_name>Block</column_name>
+        <stream_name>Block</stream_name>
+      </field>
+      <field>
+        <column_name>IUCR</column_name>
+        <stream_name>IUCR</stream_name>
+      </field>
+      <field>
+        <column_name>primary_type</column_name>
+        <stream_name>Primary Type</stream_name>
+      </field>
+      <field>
+        <column_name>Description</column_name>
+        <stream_name>Description</stream_name>
+      </field>
+      <field>
+        <column_name>location_description</column_name>
+        <stream_name>Location Description</stream_name>
+      </field>
+      <field>
+        <column_name>Arrest</column_name>
+        <stream_name>Arrest</stream_name>
+      </field>
+      <field>
+        <column_name>Domestic</column_name>
+        <stream_name>Domestic</stream_name>
+      </field>
+      <field>
+        <column_name>Beat</column_name>
+        <stream_name>Beat</stream_name>
+      </field>
+      <field>
+        <column_name>District</column_name>
+        <stream_name>District</stream_name>
+      </field>
+      <field>
+        <column_name>Ward</column_name>
+        <stream_name>Ward</stream_name>
+      </field>
+      <field>
+        <column_name>community_area</column_name>
+        <stream_name>Community Area</stream_name>
+      </field>
+      <field>
+        <column_name>fbi_code</column_name>
+        <stream_name>FBI Code</stream_name>
+      </field>
+      <field>
+        <column_name>x_coordinate</column_name>
+        <stream_name>X Coordinate</stream_name>
+      </field>
+      <field>
+        <column_name>y_coordinate</column_name>
+        <stream_name>Y Coordinate</stream_name>
+      </field>
+      <field>
+        <column_name>year_crime</column_name>
+        <stream_name>Year</stream_name>
+      </field>
+      <field>
+        <column_name>updated_on</column_name>
+        <stream_name>Updated On</stream_name>
+      </field>
+      <field>
+        <column_name>Latitude</column_name>
+        <stream_name>Latitude</stream_name>
+      </field>
+      <field>
+        <column_name>Longitude</column_name>
+        <stream_name>Longitude</stream_name>
+      </field>
+      <field>
+        <column_name>location_crime</column_name>
+        <stream_name>Location</stream_name>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>464</xloc>
+      <yloc>544</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Filter rows crime </name>
     <type>FilterRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -1170,21 +1366,21 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <send_true_to>Table output to postgres</send_true_to>
-    <send_false_to/>
+    <send_true_to>Table output crime POSTGRES</send_true_to>
+    <send_false_to>Filter rows crime_description</send_false_to>
     <compare>
       <condition>
         <negated>N</negated>
-        <leftvalue>Domestic</leftvalue>
-        <function>TRUE</function>
+        <leftvalue>Primary Type</leftvalue>
+        <function>CONTAINS</function>
         <rightvalue/>
         <value>
           <name>constant</name>
           <type>String</type>
-          <text/>
+          <text>CRIMINAL</text>
           <length>-1</length>
           <precision>-1</precision>
-          <isnull>Y</isnull>
+          <isnull>N</isnull>
           <mask/>
         </value>
       </condition>
@@ -1198,8 +1394,52 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>320</xloc>
-      <yloc>352</yloc>
+      <xloc>144</xloc>
+      <yloc>480</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Filter rows crime_description</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <send_true_to>Table output crime POSTGRES</send_true_to>
+    <send_false_to/>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <leftvalue>Description</leftvalue>
+        <function>CONTAINS</function>
+        <rightvalue/>
+        <value>
+          <name>constant</name>
+          <type>String</type>
+          <text>CRIMINAL</text>
+          <length>-1</length>
+          <precision>-1</precision>
+          <isnull>N</isnull>
+          <mask/>
+        </value>
+      </condition>
+    </compare>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>144</xloc>
+      <yloc>592</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
