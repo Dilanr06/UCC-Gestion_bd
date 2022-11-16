@@ -554,11 +554,6 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>CSV file input</from>
-      <to>Filter rows Description domestic </to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Filter rows Description domestic </from>
       <to>Filter rows domestic true </to>
       <enabled>Y</enabled>
@@ -586,6 +581,11 @@
     <hop>
       <from>Filter rows domestic true </from>
       <to>Filter rows crime </to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Table output ORCL</from>
+      <to>Filter rows Description domestic </to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -868,7 +868,7 @@
     </remotesteps>
     <GUI>
       <xloc>144</xloc>
-      <yloc>128</yloc>
+      <yloc>64</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -956,7 +956,7 @@
     </remotesteps>
     <GUI>
       <xloc>144</xloc>
-      <yloc>480</yloc>
+      <yloc>464</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1175,7 +1175,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>384</xloc>
+      <xloc>320</xloc>
       <yloc>64</yloc>
       <draw>Y</draw>
     </GUI>
